@@ -11,16 +11,19 @@ export default class Board extends Component {
     constructor() {
         super();
         this.state = {
-            fieldState: [0,0,0,0,0,0,0,0,0]
+            fieldState: [0,0,0,0,0,0,0,0,0],
+            player: 1
         };
     }
 
     fieldColor(state) {
         if(state === 0) {
             return 'transparent'
+        } else if(state === -1) {
+            return 'lightgreen';
+        } else {
+            return 'lightblue';
         }
-
-        return 'lightblue';
     }
 
     renderFields(count) {
@@ -45,16 +48,21 @@ export default class Board extends Component {
     }
  
     _onPress(index) {
-        let newState = this.state.fieldState.map(function(value, i) {
+        let newState = this.state.fieldState.map((value, i) => {
             if(index === i) {
-                return value === 0 ? 1 : 0
+                if(value === 0) {
+                    return this.state.player;   
+                }
+
+                return value;
             }
 
             return value
         });
 
         this.setState({
-            fieldState: newState
+            fieldState: newState,
+            player: this.state.player === 1 ? -1 : 1
         });
     }
     
