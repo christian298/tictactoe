@@ -7,11 +7,16 @@ import React, {
   TouchableOpacity
 } from 'react-native';
 
+import TicTacToe from '../model/tictactoe.js';
+
 export default class Board extends Component {
     constructor() {
         super();
+
+        this.ttt = new TicTacToe(9);
+        
         this.state = {
-            fieldState: [0,0,0,0,0,0,0,0,0],
+            fieldState: this.ttt.getBoard(),
             player: 1
         };
     }
@@ -48,20 +53,8 @@ export default class Board extends Component {
     }
  
     _onPress(index) {
-        let newState = this.state.fieldState.map((value, i) => {
-            if(index === i) {
-                if(value === 0) {
-                    return this.state.player;   
-                }
-
-                return value;
-            }
-
-            return value
-        });
-
         this.setState({
-            fieldState: newState,
+            fieldState: this.ttt.updateBoardAt(index, this.state.player),
             player: this.state.player === 1 ? -1 : 1
         });
     }
