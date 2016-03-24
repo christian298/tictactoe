@@ -1,7 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 import React, {
   AppRegistry,
@@ -12,6 +8,7 @@ import React, {
 } from 'react-native';
 
 import Board from './components/board.js';
+import PlayerList from './components/playerList.js';
 
 class TicTacToeRN extends Component {
   render() {

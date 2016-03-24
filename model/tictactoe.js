@@ -1,4 +1,4 @@
-export default class TicTicToe {
+export default class TicTacToe {
     constructor(boardSize) {
         this.board = this.initBoard(boardSize);
         this.size = boardSize;
@@ -7,7 +7,11 @@ export default class TicTicToe {
     initBoard(size) {
         let board = Array(size);
         for(let i = 0; i < size; i++) {
-            board[i] = 0;
+            board[i] = Array(size);
+
+            for(let x = 0; x < size; x++) {
+                board[i][x] = 0; 
+            }
         }    
         
         return board;
@@ -18,7 +22,8 @@ export default class TicTicToe {
     }
 
     updateBoardAt(index, newValue) {
-        this.board[index] = newValue;
+        let cord = this.getCords(index);
+        this.board[cord.row][cord.col] = newValue;
         return this.board;
     }
 
@@ -29,13 +34,27 @@ export default class TicTicToe {
 
     getCords(index) {
         const row = Math.floor(index / this.size);
-        const field = index - (row * this.size);
+        const col = index - (row * this.size);
+
+        return {
+            "row": row,
+            "col": col
+        };
     }
 
-    taken(index) {
+    fieldsTaken(value) {
+        return (value === 1 || value === -1)
     }
 
-    takeField(index) {
-    
+    checkBoard(index) {
+        const cord = this.getCords(index);
+        const row = this.board[cord.row];
+        const filtered = row.filter(this.fieldsTaken).length;
+
+        if(filtered.length === this.size) {
+            return filtered[0];    
+        } else {
+            return null;
+        }
     }
 } 

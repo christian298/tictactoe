@@ -13,7 +13,7 @@ export default class Board extends Component {
     constructor() {
         super();
 
-        this.ttt = new TicTacToe(9);
+        this.ttt = new TicTacToe(3);
         
         this.state = {
             fieldState: this.ttt.getBoard(),
@@ -35,13 +35,17 @@ export default class Board extends Component {
         let fields = []; 
 
         for(let i = 0; i < count; i++) {
+            
+            let cord = this.ttt.getCords(i);
+            let bgColor = this.fieldColor(this.state.fieldState[cord.row][cord.col]);
+
             fields.push(
                 <TouchableOpacity onPress={() => this._onPress(i)}
                     key={i} 
                     style={[styles.field, {
                             width: 270 / this.props.size,
                             height: 270 / this.props.size,
-                            backgroundColor: this.fieldColor(this.state.fieldState[i])
+                            backgroundColor: bgColor 
                         }]}>
                     <View>
                     </View>
@@ -53,6 +57,7 @@ export default class Board extends Component {
     }
  
     _onPress(index) {
+        console.log(this.ttt.checkBoard(index));
         this.setState({
             fieldState: this.ttt.updateBoardAt(index, this.state.player),
             player: this.state.player === 1 ? -1 : 1
