@@ -57,7 +57,6 @@ export default class Board extends Component {
     }
  
     _onPress(index) {
-        console.log(this.ttt.checkBoard(index));
         this.setState({
             fieldState: this.ttt.updateBoardAt(index, this.state.player),
             player: this.state.player === 1 ? -1 : 1
@@ -65,6 +64,7 @@ export default class Board extends Component {
     }
     
     render() {
+        this.ttt.gameOver();
         return (
             <View style={styles.board}>
                 {this.renderFields(this.props.size * this.props.size)}       

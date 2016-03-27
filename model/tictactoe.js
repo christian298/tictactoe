@@ -42,19 +42,42 @@ export default class TicTacToe {
         };
     }
 
-    fieldsTaken(value) {
-        return (value === 1 || value === -1)
+    checkRow() {
+        let full = false;
+        
+        this.board.forEach(function(item) {
+            let check = item.every(elem => elem === 1);
+            
+            if(check) {
+                full = true;
+            }
+        });
+
+        return full;
     }
 
-    checkBoard(index) {
-        const cord = this.getCords(index);
-        const row = this.board[cord.row];
-        const filtered = row.filter(this.fieldsTaken).length;
+    checkCol() {
+        let full = false;
 
-        if(filtered.length === this.size) {
-            return filtered[0];    
-        } else {
-            return null;
+        for(let x = 0; x < this.size; x++) {
+            let col = [];
+           
+            this.board.forEach(function(item) {
+                col.push(item[x]);        
+            });
+
+            let check = col.every(elem => elem === 1);
+
+            if(check) {
+                full = true;
+            }
         }
+
+        return full;
+    }
+
+    gameOver() {
+        console.log(`Row: ${this.checkRow()}`);
+        console.log(`Col: ${this.checkCol()}`);
     }
 } 
