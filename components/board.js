@@ -4,6 +4,7 @@ import React, {
   Component,
   StyleSheet,
   View,
+  Text,
   TouchableOpacity
 } from 'react-native';
 
@@ -47,8 +48,6 @@ export default class Board extends Component {
                             height: 270 / this.props.size,
                             backgroundColor: bgColor 
                         }]}>
-                    <View>
-                    </View>
                 </TouchableOpacity>
             );
         }
@@ -57,14 +56,23 @@ export default class Board extends Component {
     }
  
     _onPress(index) {
+        const newBoard = this.ttt.updateBoardAt(index, this.state.player);
+        const gameState = this.ttt.isGameOver();
+
         this.setState({
-            fieldState: this.ttt.updateBoardAt(index, this.state.player),
+            fieldState: newBoard,
+            gameOver: gameState,
             player: this.state.player === 1 ? -1 : 1
         });
     }
     
     render() {
-        this.ttt.gameOver();
+        if(this.state.gameOver) {
+            return(
+                <Text>Game over</Text>
+            );
+        }
+        
         return (
             <View style={styles.board}>
                 {this.renderFields(this.props.size * this.props.size)}       
