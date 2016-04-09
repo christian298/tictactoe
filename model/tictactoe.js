@@ -33,7 +33,7 @@ export default class TicTacToe {
     }
 
     getCords(index) {
-        const row = Math.floor(index / this.size);
+       const row = Math.floor(index / this.size);
         const col = index - (row * this.size);
 
         return {
