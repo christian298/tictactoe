@@ -1,4 +1,4 @@
-export function initBoard(size) {
+export function createBoard(size) {
     let board = Array(size);
     for(let i = 0; i < size; i++) {
         board[i] = Array(size);
@@ -12,7 +12,7 @@ export function initBoard(size) {
 }
 
 export function getCordsForIndex(index, boardSize) {
-    const row = Math.floor(index / boadSize);
+    const row = Math.floor(index / boardSize);
     const col = index - (row * boardSize);
 
     return {
