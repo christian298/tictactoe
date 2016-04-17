@@ -9,7 +9,31 @@ import React, {
 } from 'react-native';
 
 import TicTacToe from '../model/tictactoe.js';
+import Field from './field.js';
 
+const Board = (props) => {
+    let index = -1;
+    let board = props.board.map((row, rowIndex) => {
+        return row.map((col, colIndex) => {
+            index ++;
+            return(
+                <Field 
+                    handler={props.onFieldClick} 
+                    index={index} 
+                    size={90} 
+                    value={col}
+                />
+            );
+        });
+    });
+    
+    return(
+        <View style={styles.board}>
+            {board}
+        </View>
+    );
+};
+/*
 export default class Board extends Component {
     constructor() {
         super();
@@ -80,6 +104,7 @@ export default class Board extends Component {
         );
     }
 }
+*/
 
 Board.propTypes = {
     size: React.PropTypes.number
@@ -102,3 +127,5 @@ const styles = StyleSheet.create({
         borderColor: 'black',
     }
 });
+
+export default Board;
