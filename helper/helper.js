@@ -25,3 +25,26 @@ export function updateBoard(board, row, col, value) {
     board[row][col] = value;
     return board;
 }
+
+export function fullRow(board) {
+    let fullRow = {
+        "player1": false,
+        "player2": false
+    };
+    
+    board.forEach(item => {
+        if(item.every(elem => elem === 1)) {
+            fullRow.player1 = true;
+        }
+
+        if(item.every(elem => elem === -1)) {
+            fullRow.player2 = true;
+        }
+    });
+    
+    return fullRow;
+}
+
+export function fullCol(board) {
+
+}

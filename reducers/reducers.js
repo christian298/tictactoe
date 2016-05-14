@@ -13,12 +13,22 @@ function tictactoe(state = initialState, action) {
         case SET_FIELD:
             let newBoard = state.board;
             const cords = getCordsForIndex(action.field, BOARD_SIZE);
-            newBoard[cords.row][cords.col] = state.player;
             
-            return Object.assign({}, state, {
-                board: newBoard,
-                player: state.player === 1 ? -1 : 1
-            })
+            if(newBoard[cords.row][cords.col] === 0) {
+                newBoard[cords.row][cords.col] = state.player;
+                
+                return Object.assign({}, state, {
+                    board: newBoard,
+                    player: state.player === 1 ? -1 : 1
+                });    
+            } else {
+                return Object.assign({}, state, {
+                    board: state.board,
+                    player: state.player === 1 ? -1 : 1
+                });
+            }
+            
+            
         default:
             return state
     }
